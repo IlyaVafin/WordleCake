@@ -15,7 +15,7 @@ Route::get("/auth/login", function () {
     return view("login");
 });
 
-Route::middleware("auth:api")->group(function () {
+Route::middleware("auth:sanctum")->group(function () {
     Route::get("/profile", function () {
         return view('profile');
     });
@@ -27,9 +27,6 @@ Route::post("/", function (Request $request) {
     $message = $request->input("message");
     return response()->json(["message" => $message]);
 });
-
-
-
 Route::post("/registration", [AuthController::class, "register"]);
 
 Route::prefix("auth")->group(function () {

@@ -9,13 +9,14 @@ use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 #[Fillable(['email', 'nickname', 'password', 'first_name', 'last_name', 'birthday', 'avatar', 'points', "superuser"])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable implements JWTSubject 
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasApiTokens;
 
     protected function casts(): array
     {
