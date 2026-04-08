@@ -7,7 +7,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CheckIsAdmin
+class CheckIsLogged
 {
     /**
      * Handle an incoming request.
@@ -19,12 +19,10 @@ class CheckIsAdmin
         $tokenCookie = $request->cookie("access_token");
         if($tokenCookie) {
             $token = PersonalAccessToken::findToken($tokenCookie);
-            if(!$token) return back();
-            $user = $token->tokenable;
-            $isAdmin = $user->superuser;
-            if(!$isAdmin) return back();
+            if($token && $token->tokenable()) {
+                return redirect("/");
+            }
         }
-        else if(!$tokenCookie) return redirect("/auth/login");
         return $next($request);
     }
 }

@@ -20,12 +20,6 @@
             <input name="password" id="password" type="password">
         </div>
         <button>Log in</button>
-        @error('password')
-            <p>{{ $message }}</p>
-        @enderror
-        @error('email')
-            <p>{{ $message }}</p>
-        @enderror
     </form>
 </body>
 

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Middleware\Auth;
+use App\Http\Middleware\CheckIsAdmin;
+use App\Http\Middleware\CheckIsLogged;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -13,7 +15,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        $middleware->alias([
+            "logged" => CheckIsLogged::class,
+            "admin" => CheckIsAdmin::class
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

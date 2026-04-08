@@ -41,7 +41,8 @@ class AuthController extends Controller
             "points" => 100
         ]);
 
-        $token = $user->createToken("auth-token")->plainTextContent;
+        $token = $user->createToken("auth-token")->plainTextToken;
+
         return response()->json([
             "message" => "registration success!!",
             "data" => [
@@ -53,7 +54,7 @@ class AuthController extends Controller
             "credentials" => [
                 "token" => $token
             ]
-        ], 201);
+        ], 201)->cookie('access_token', $token, 120, "/", null, true, true );
     }
 
     public function login(Request $request)
@@ -78,7 +79,7 @@ class AuthController extends Controller
             "credentials" => [
                 "token" => $token
             ]
-        ]);
+        ])->cookie("access_token", $token, 120, "/", null, true, true);
     }
 
     public function logout()
