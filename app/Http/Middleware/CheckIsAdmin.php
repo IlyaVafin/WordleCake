@@ -16,15 +16,14 @@ class CheckIsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $tokenCookie = $request->cookie("access_token");
-        if($tokenCookie) {
-            $token = PersonalAccessToken::findToken($tokenCookie);
-            if(!$token) return back();
-            $user = $token->tokenable;
-            $isAdmin = $user->superuser;
-            if(!$isAdmin) return back();
+        $isApi = $request->is("api/**");
+        $user = $request->user(); 
+        if(!$user || !$user->superuser) {
+            if($isApi) {
+                return response()->json(["message" => "Forbidden"], 403); 
+            }
+            return redirect("/");
         }
-        else if(!$tokenCookie) return redirect("/auth/login");
-        return $next($request);
+        return $next($request); 
     }
 }

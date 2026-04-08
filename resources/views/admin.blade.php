@@ -12,7 +12,7 @@
         @csrf
         <div class="">
             <label for="">Category title</label> <br>
-            <input name="title" type="text">
+            <input name="name" type="text">
         </div>
         <div class="">
             <label for="">Category description</label> <br>

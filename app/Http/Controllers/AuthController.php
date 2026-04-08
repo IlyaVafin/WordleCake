@@ -54,7 +54,7 @@ class AuthController extends Controller
             "credentials" => [
                 "token" => $token
             ]
-        ], 201)->cookie('access_token', $token, 120, "/", null, true, true );
+        ], 201)->cookie('access_token', $token, 120, "/", null, true, true);
     }
 
     public function login(Request $request)

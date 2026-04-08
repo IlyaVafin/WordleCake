@@ -24,7 +24,7 @@ Route::middleware("auth:sanctum")->group(function () {
 
 Route::get("/wordle_cake/admin", function() {
     return view('admin');
-})->middleware("admin");
+})->middleware(["check-auth", "admin"]);
 
 
 Route::post("/", function (Request $request) {

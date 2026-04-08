@@ -10,4 +10,4 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post("/category", [CategoryController::class, 'store'])->middleware(["auth:sanctum", "admin"]);
+Route::post("/category", [CategoryController::class, 'store'])->middleware("check-auth");
