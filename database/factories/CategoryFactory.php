@@ -20,8 +20,8 @@ class CategoryFactory extends Factory
     {
         return [
             "name" => Str::random(5),
-            "image" => "",
-            "description" => fake()->sentence(4)
+            "image" => "category/9udoW3t6YN3cXDvSPk9yVLNCHlP50AlMCDWWgm8P.jpg",
+            "description" => fake()->sentence(2)
         ];
     }
 }

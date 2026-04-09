@@ -13,4 +13,9 @@ class Category extends Model
         "description",
         "image"
     ];
+
+    public function games()
+    {
+        return $this->hasMany(Game::class);
+    }
 }

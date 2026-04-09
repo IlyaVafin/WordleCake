@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer("increment_points")->unsigned();
             $table->integer("decrement_points")->unsigned();
             $table->string("preview");
+            $table->string("status")->default("active");
             $table->foreignId("category_id")->references("id")->on("categories");
             $table->unsignedTinyInteger("age_limit");
             $table->unsignedTinyInteger("attempts");

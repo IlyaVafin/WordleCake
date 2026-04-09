@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Middleware\Auth;
 use App\Http\Middleware\CheckIsAdmin;
 use Illuminate\Http\Request;
@@ -22,7 +23,9 @@ Route::middleware("auth:sanctum")->group(function () {
     });
 });
 
-Route::get("/wordle_cake/admin", function() {
+Route::get("/category/{id}", [CategoryController::class, "show"]);
+
+Route::get("/wordle_cake/admin", function () {
     return view('admin');
 })->middleware(["check-auth", "admin"]);
 
@@ -36,5 +39,3 @@ Route::post("/registration", [AuthController::class, "register"]);
 Route::prefix("auth")->group(function () {
     Route::post("login", [AuthController::class, 'login'])->name("login");
 });
-
-
