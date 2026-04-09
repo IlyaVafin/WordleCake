@@ -13,7 +13,6 @@ class CategoryController extends Controller
        $categories = Category::paginate(5);
        return response()->json([
         "categories" => $categories,
-        "MESSAGE" => "HELLLO"
        ]);
     }
     public function store(Request $request)
@@ -30,5 +29,14 @@ class CategoryController extends Controller
             "image" => $path
         ]);
         return response()->json($category, 201);
+    }
+
+    public function destroy(string $id) {
+        $category = Category::findOrFail($id);
+        if(!$category) {
+            return response()->json(["message" => "Category not found"], 404);
+        }
+        $category->destroy();
+        return response(null, 204);
     }
 }

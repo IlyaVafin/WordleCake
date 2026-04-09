@@ -37,6 +37,16 @@ async function getCategories(pageArg) {
     }
 }
 
+async function deleteCategory(id) {
+    try {
+        const response = await fetch(`${API_URL}`)
+        const data = await response.json()
+        return data
+    } catch (error) {
+        console.error(error)
+    }
+}
+
 async function getPaginatedData(page) {
     const response = await getCategories(page);
     return response.categories.data
@@ -59,15 +69,7 @@ function renderCategories(data) {
             image.width = 300
             image.height = 300
         }
-        const buttonsContainer = document.createElement("div")
-        const deleteButton = document.createElement("button")
-        deleteButton.classList.add("delete-button")
-        deleteButton.textContent = "Delete category"
-        const editButton = document.createElement("button")
-        editButton.classList.add("edit-button")
-        editButton.textContent = "Edit category"
-        buttonsContainer.appendChild(deleteButton)
-        buttonsContainer.appendChild(editButton)
+        const buttonsContainer = createCategoryButtons(category.id)
         h3.textContent = category.name
         paragraphName.textContent = category.description
         paragraphId.textContent = `ID: ${category.id}`
@@ -78,6 +80,21 @@ function renderCategories(data) {
         li.appendChild(buttonsContainer)
         categoryList.appendChild(li)
     }
+}
+
+
+function createCategoryButtons(categoryId) {
+    const buttonsContainer = document.createElement("div")
+    buttonsContainer.dataset.categoryId = categoryId
+    const deleteButton = document.createElement("button")
+    deleteButton.classList.add("delete-button")
+    deleteButton.textContent = "Delete category"
+    const editButton = document.createElement("button")
+    editButton.classList.add("edit-button")
+    editButton.textContent = "Edit category"
+    buttonsContainer.appendChild(deleteButton)
+    buttonsContainer.appendChild(editButton)
+    return buttonsContainer
 }
 
 function searchCategory(query) {
