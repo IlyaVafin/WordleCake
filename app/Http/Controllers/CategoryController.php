@@ -8,6 +8,14 @@ use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
+
+    public function index() {
+       $categories = Category::paginate(5);
+       return response()->json([
+        "categories" => $categories,
+        "MESSAGE" => "HELLLO"
+       ]);
+    }
     public function store(Request $request)
     {
         $categoryData = $request->validate([

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PersonalAccessToken;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class AuthController extends Controller
@@ -68,12 +70,15 @@ class AuthController extends Controller
             return response()->json(["message" => "Invalid credentials"], 401);
         }
         $token = $user->createToken('auth-token')->plainTextToken;
+        $tokenDb = PersonalAccessToken::findToken($token);
+        $userByToken = $tokenDb->tokenable;
         return response()->json([
             "message" => "success login in!",
             "data" => [
                 "user" => [
                     "nickname" => $user['nickname'],
-                    "avatar" => $user['avatar']
+                    "avatar" => $user['avatar'],
+                    "superuser" => $userByToken['superuser']
                 ]
             ],
             "credentials" => [

@@ -8,7 +8,14 @@ async function login(loginData) {
                 Accept: "application/json",
             },
         });
-        const data = await response.json();
+        if (response.ok) {
+            const data = await response.json();
+            if (data.data.user.superuser) {
+                window.location.href = "/wordle_cake/admin"
+            } else {
+                window.location.href = "/"
+            }
+        }
         if (response.status === 401) {
             showError("Invalid credentials");
         }

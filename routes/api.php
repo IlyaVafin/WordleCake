@@ -11,3 +11,4 @@ Route::get('/user', function (Request $request) {
 });
 
 Route::post("/category", [CategoryController::class, 'store'])->middleware("check-auth");
+Route::get("/category", [CategoryController::class, 'index']);
