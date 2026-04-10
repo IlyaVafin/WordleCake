@@ -10,6 +10,7 @@ async function register(formData) {
         if (response.ok) {
             const data = await response.json();
             localStorage.setItem("token", data.credentials.token)
+            window.location.href = "/"
         }
     } catch (error) {
         console.error(error);

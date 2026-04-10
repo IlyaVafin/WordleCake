@@ -17,4 +17,9 @@ class Game extends Model
         "age_limit",
         "attempts"
     ];
+
+    public function words()
+    {
+        return $this->hasMany(Word::class);
+    }
 }

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedTinyInteger("attempts_left");
             $table->string("win_word");
             $table->dateTime("start");
-            $table->date("end")->nullable();
+            $table->dateTime("end")->nullable();
             $table->timestamps();
         });
     }

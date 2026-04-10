@@ -19,13 +19,13 @@ class GameFactory extends Factory
     {
         return [
             "level" => "medium",
-            "increment_points" => fake()->randomNumber(),
-            "decrement_points" => fake()->randomNumber(),
+            "increment_points" => fake()->randomNumber(2),
+            "decrement_points" => fake()->randomNumber(1),
             "preview" => "category/2wwVLFLCu2Bus29ZnKmZAbAXLcs2Uh3DgqdSjYmR.jpg",
             "status" => "active",
             "category_id" => 1,
             "age_limit" => 16,
-            "attempts" => 8
+            "attempts" => 8,
         ];
     }
 }

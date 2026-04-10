@@ -19,19 +19,18 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        // User::factory()->create([
-        //     'nickname' => 'Admin',
-        //     'email' => 'admin@mail.ru',
-        //     'password' => "game2017",
-        //     'first_name' => "Admin",
-        //     "last_name" => "Adminovich",
-        //     "birthday" => "2008-07-18",
-        //     "superuser" => true,
-        //     'points' => 0,
-        //     'avatar' => ""
-        // ]);
+        User::factory()->create([
+            'nickname' => 'Admin',
+            'email' => 'admin@mail.ru',
+            'password' => "game2017",
+            'first_name' => "Admin",
+            "last_name" => "Adminovich",
+            "birthday" => "2008-07-18",
+            "superuser" => true,
+            'points' => 100,
+            'avatar' => ""
+        ]);
 
-        Category::factory(10)->create();
-        Game::factory(10)->create();
+        Category::factory()->count(10)->has(Game::factory()->count(1)->hasWords(10))->create();
     }
 }
