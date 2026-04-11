@@ -14,7 +14,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 #[Fillable(['email', 'nickname', 'password', 'first_name', 'last_name', 'birthday', 'avatar', 'points', "superuser"])]
 #[Hidden(['password', 'remember_token'])]
-class User extends Authenticatable implements JWTSubject 
+class User extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable, HasApiTokens;
 
@@ -24,6 +24,11 @@ class User extends Authenticatable implements JWTSubject
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function sessions()
+    {
+        return $this->hasMany(GameSession::class);
     }
 
     public function getJWTIdentifier()

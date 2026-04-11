@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
-    
+
     public function index()
     {
         $categories = Category::withCount([
@@ -29,6 +29,34 @@ class CategoryController extends Controller
             "categories" => $categories
         ]);
     }
+
+    public function getCategories(Request $request)
+    {
+        $query = Category::query();
+        $queryCategoryName = $request->query("name");
+        if ($queryCategoryName) {
+            $query->where("name", "like", "%" . $queryCategoryName . "%");
+        }
+        $categories = $query->paginate(20);
+        $mappedCategories = $categories->map(function($category) {
+            return [
+                "id" => $category->id,
+                "name" => $category->name,
+                "description" => $category->description,
+                "preview" => $category->image
+            ];
+        });
+        return response()->json([
+            "data" => [
+                "categories" => $mappedCategories,
+                "per_page" => $categories->perPage(),
+                "current_page" => $categories->currentPage(),
+                "last_page" => $categories->lastPage(),
+                "totalItems" => $categories->total()
+            ]
+        ]);
+    }
+
 
     public function show(string $id)
     {

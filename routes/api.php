@@ -8,14 +8,14 @@ use App\Http\Controllers\GameController;
 use App\Http\Controllers\GameSessionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RewardController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get("/users", [UserController::class, 'index']);
 
 Route::get('/category', [CategoryController::class, 'index']);
+Route::get("/categories", [CategoryController::class, "getCategories"]);
 Route::post('/category', [CategoryController::class, 'store'])->middleware(['check-auth', 'admin']);
 Route::patch("/category/{id}", [CategoryController::class, "update"])->middleware(['check-auth', 'admin']);
 Route::delete('/category/{id}', [CategoryController::class, 'destroy'])->middleware(['check-auth', 'admin']);
