@@ -69,11 +69,24 @@ class AttemptController extends Controller
         ]);
 
         $session->save();
+        $correctLetters = [];
+        $word = $validated['word'];
+        $wordChars = mb_str_split(mb_strtolower($word));
+        $winWordChars = mb_str_split(mb_strtolower($session->win_word));
+
+        foreach ($wordChars as $i => $char) {
+            if (isset($winWordChars[$i]) && $winWordChars[$i] === $char) {
+                $correctLetters[] = $i;
+            }
+        }
+
+
         return response()->json([
             "data" => [
                 "user_attempts" => $session->attempts_left,
                 "number" => $attempt->number,
-                "word" => $attempt->word
+                "word" => $attempt->word,
+                "correct_letters" => $correctLetters
             ]
         ], 201);
     }
