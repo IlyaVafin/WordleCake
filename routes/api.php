@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\GameSessionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RewardController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,3 +31,5 @@ Route::delete("/game/{game_id}", [GameController::class, 'destroy'])->middleware
 Route::delete("/logout", [AuthController::class, 'logout'])->middleware(['check-auth']);
 
 Route::get("/profile", [ProfileController::class, 'index']);
+
+Route::post("/rewards/daily", [RewardController::class, 'store']);
