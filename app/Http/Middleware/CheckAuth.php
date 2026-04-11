@@ -26,8 +26,8 @@ class CheckAuth
         }
 
         if ($request->is("api/*")) {
-            return response()->json(["message" => "Unauthorized"], 401);
+            return response()->json(["message" => "Unauthorized"], 401)->withoutCookie("access_token");
         }
-        return redirect("/auth/login");
+        return redirect("/auth/login")->withoutCookie("access_token");
     }
 }

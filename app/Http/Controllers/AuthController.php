@@ -86,9 +86,10 @@ class AuthController extends Controller
         ])->cookie("access_token", $token, 120, "/", null, true, true);
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        auth()->user()->tokens()->delete();
-        return redirect("/");
+        $token = PersonalAccessToken::findToken($request->cookie("access_token"));
+        $token->delete();
+        return response()->json(null, 204)->withoutCookie("access_token");
     }
 }

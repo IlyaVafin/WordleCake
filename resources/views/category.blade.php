@@ -10,6 +10,7 @@
 <body>
     <img width="200" height="200" src={{ "http://localhost:8000/storage/{$category->image}" }} alt="">
     <ul></ul>
+    {{$games}}
     @foreach ($category->games as $game)
        
     @endforeach

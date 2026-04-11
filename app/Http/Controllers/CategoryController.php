@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
-
+    
     public function index()
     {
         $categories = Category::withCount([
@@ -32,8 +32,9 @@ class CategoryController extends Controller
 
     public function show(string $id)
     {
-        $category = Category::with("games")->where("id", "=", $id)->first();
-        return view('category', ["category" => $category]);
+        $category = Category::find($id);
+        $games = $category->games()->where("status", "active")->get();
+        return view('category', ["category" => $category, "games" => $games]);
     }
 
     public function store(Request $request)

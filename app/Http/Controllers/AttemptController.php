@@ -22,8 +22,12 @@ class AttemptController extends Controller
         $gameSessionId = $request->route("game_uuid");
         $countAttempts = Attempt::where("session_id", $gameSessionId)->count();
         $session = GameSession::where("id", $gameSessionId)->first();
+        if ($session->user_id != $user->id) {
+            return response()->json(["message" => "Forbidden"], 403);
+        }
         $game = Game::where("id", $session->game_id)->first();
         $session->attempts_left = $session->attempts_left - 1;
+
         if ($session->status != "open") {
             return response()->json(["message" => "Game is over"], 200);
         }

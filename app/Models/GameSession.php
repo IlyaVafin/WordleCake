@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class GameSession extends Model
 {
@@ -17,4 +18,14 @@ class GameSession extends Model
         "start",
         "end"
     ];
+
+    public function game()
+    {
+        return $this->belongsTo(Game::class, "game_id");
+    }
+
+    public function attempts()
+    {
+        return $this->hasMany(Attempt::class, "session_id");
+    }
 }
