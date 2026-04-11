@@ -31,5 +31,6 @@ Route::delete("/game/{game_id}", [GameController::class, 'destroy'])->middleware
 Route::delete("/logout", [AuthController::class, 'logout'])->middleware(['check-auth']);
 
 Route::get("/profile", [ProfileController::class, 'index']);
+Route::patch("/profile", [ProfileController::class, 'update']);
 
 Route::post("/rewards/daily", [RewardController::class, 'store']);

@@ -7,6 +7,7 @@ use App\Models\GameSession;
 use App\Models\PersonalAccessToken;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -52,5 +53,23 @@ class ProfileController extends Controller
                 "games" => $mappedSessions
             ]
         ]);
+    }
+
+    public function update(Request $request)
+    {
+        $token = PersonalAccessToken::findToken($request->cookie("access_token"));
+        $user = $token->tokenable;
+        $validated = $request->validate([
+            "nickname" => "sometimes|string|min:1",
+            "first_name" => "sometimes|string",
+            "last_name" => "sometimes|string",
+            "avatar" => "sometimes|mimes:png,jpg,jpeg|max:2048"
+        ]);
+        $user->update($validated);
+        if ($request->hasFile("avatar")) {
+            $user->avatar = Storage::disk("public")->putFile("avatar", $request->file("avatar"));
+            $user->save();
+        }
+        return response(null, 204);
     }
 }
