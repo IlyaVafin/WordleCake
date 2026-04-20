@@ -34,6 +34,7 @@ Route::post("/", function (Request $request) {
     $message = $request->input("message");
     return response()->json(["message" => $message]);
 });
+
 Route::post("/registration", [AuthController::class, "register"]);
 
 Route::prefix("auth")->group(function () {

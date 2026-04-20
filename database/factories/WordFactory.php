@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Game;
 use App\Models\Word;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,6 +20,7 @@ class WordFactory extends Factory
     {
         return [
             "text" => fake()->sentence(1),
+            "game_id" => Game::factory()
         ];
     }
 }

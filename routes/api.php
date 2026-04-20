@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get("/users", [UserController::class, 'index'])->middleware('auth:sanctum');
 
+Route::post("/registration", [AuthController::class, 'register']);
+Route::post("/login", [AuthController::class, 'login']);
+
 Route::get('/category', [CategoryController::class, 'index']);
 Route::get("/categories", [CategoryController::class, "getCategories"]);
 Route::post('/category', [CategoryController::class, 'store'])->middleware(['auth:sanctum', 'admin']);

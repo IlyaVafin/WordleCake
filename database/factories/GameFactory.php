@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use App\Models\Game;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -23,7 +24,7 @@ class GameFactory extends Factory
             "decrement_points" => fake()->randomNumber(1),
             "preview" => "category/2wwVLFLCu2Bus29ZnKmZAbAXLcs2Uh3DgqdSjYmR.jpg",
             "status" => "active",
-            "category_id" => 1,
+            "category_id" => Category::factory(),
             "age_limit" => 16,
             "attempts" => 8,
         ];

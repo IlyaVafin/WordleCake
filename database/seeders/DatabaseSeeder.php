@@ -4,9 +4,11 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\Game;
+use App\Models\GameSession;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,10 +21,10 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
+        User::updateOrCreate(['email' => "admin@mail.ru"], 
+        [
             'nickname' => 'Admin',
-            'email' => 'admin@mail.ru',
-            'password' => "game2017",
+            'password' => Hash::make("game2017"),
             'first_name' => "Admin",
             "last_name" => "Adminovich",
             "birthday" => "2008-07-18",
@@ -30,7 +32,7 @@ class DatabaseSeeder extends Seeder
             'points' => 100,
             'avatar' => ""
         ]);
-
-        Category::factory()->count(10)->has(Game::factory()->count(1)->hasWords(10))->create();
+        GameSession::factory(2)->create();
+        // Category::factory()->count(10)->has(Game::factory()->count(1)->hasWords(10))->create();
     }
 }

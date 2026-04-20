@@ -25,14 +25,14 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'nickname' => 'Admin',
-            'email' => 'admin@mail.ru',
-            'password' => Hash::make("game2017"),
-            'first_name' => "Admin",
-            "last_name" => "Adminovich",
-            "birthday" => "2008-07-18",
-            "superuser" => true,
-            'points' => 0,
+            'nickname' => fake()->userName(),
+            'email' => fake()->email(),
+            'password' => Hash::make("password"),
+            'first_name' => fake()->name(),
+            "last_name" => fake()->lastName(),
+            "birthday" => fake()->date('Y-m-d', '2008-01-01'),
+            "superuser" => false,
+            'points' => fake()->numberBetween(10, 500),
             'avatar' => ""
         ];
     }
